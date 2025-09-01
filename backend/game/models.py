@@ -30,6 +30,7 @@ def get_default_league():
 class Athlete(models.Model):
     league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="athletes", default=get_default_league)
     name = models.CharField(max_length=200, default="Unnamed Athlete")
+    position = models.CharField(max_length=10, default="")
     teams = models.CharField(max_length=100, default="")
     birthdate = models.DateField(default=datetime.date(1500, 1, 1))
 
@@ -61,7 +62,6 @@ class nflStats(models.Model):
     qb_rec = models.CharField(max_length=10)
     pass_sks = models.IntegerField(default=0)
 
-
     pass_cmps = models.IntegerField(default=0)
     pass_atts = models.IntegerField(default=0)
     pass_cmp_pct = models.FloatField(default=0.0)
@@ -70,19 +70,17 @@ class nflStats(models.Model):
     # RB Stats
     rush_yds = models.IntegerField(default=0)
     rush_tds = models.IntegerField(default=0)
-
     rush_atts = models.IntegerField(default=0)
     rush_yds_per_att = models.FloatField(default=0.0)
 
-    # WR Stats
+    # WR/TE Stats
     rec_yds = models.IntegerField(default=0)
     rec_tds = models.IntegerField(default=0)
-
     recs = models.IntegerField(default=0)
     rec_yds_per_att = models.FloatField
 
     # Defensive Stats
-    # Tackles
+    # Tackles (NOTE: Tackles did not become a stat until 1994)
     solo_tkls = models.IntegerField(default=0)
     comb_tkls = models.IntegerField(default=0)
     def_sks = models.FloatField(default=0.0)
@@ -150,3 +148,4 @@ class mlbStats(models.Model):
 
 # TODO: Find way to display stats based on position (e.g. if position is QB display passing stats, if RB display rushing stats, if DL display tackles, etc.)
 # TODO: Find way to display team names based on abbreviation (e.g. NYG=New York Giants, OAK=Oakland Raiders, LVR = Las Vegas Raiders)
+
