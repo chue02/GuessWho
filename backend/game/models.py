@@ -2,8 +2,6 @@ from django.db import models
 from django.forms import ValidationError
 import datetime
 
-
-
 # Create your models here.
 
 class League(models.Model):
@@ -29,7 +27,7 @@ def get_default_league():
 # Yrs active, age, DoB ...
 class Athlete(models.Model):
     league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="athletes", default=get_default_league)
-    name = models.CharField(max_length=200, default="Unnamed Athlete")
+    name = models.CharField(max_length=200, default="Unnamed Athlete", unique=True) 
     position = models.CharField(max_length=10, default="")
     teams = models.CharField(max_length=100, default="")
     birthdate = models.DateField(default=datetime.date(1500, 1, 1))
@@ -122,22 +120,36 @@ class nbaStats(models.Model):
 # TODO: complete MLB stats
 class mlbStats(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, related_name="mlb_stats")
+    games = models.IntegerField(default=0)
 
-    # Counting stats
+    # Hitting counting stats
     plate_app = models.IntegerField(default=0)
     at_bats = models.IntegerField(default=0)
     hits = models.IntegerField(default=0)
     rbis = models.IntegerField(default=0)
     hrs = models.IntegerField(default=0)
+    bb = models.IntegerField(default=0)
     sb = models.IntegerField(default=0)
     tb = models.IntegerField(default=0)
+    ks = models.IntegerField(default=0.0)
     b_war = models.FloatField(default=0.0)
 
-    # Avg stats
+    # Hitting average stats
     batting_avg = models.FloatField(default=0.000)
     on_base_pct = models.FloatField(default=0.000)
     slg = models.FloatField(default=0.000)
     ops = models.FloatField(default=0.000)
+
+    # Pitching stats
+    ip = models.FloatField(default=0.0)
+    era = models.FloatField(default=0.0)
+    whip = models.FloatField(default=0.0)
+
+    so = models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
+    losses = models.IntegerField(default=0)
+    saves = models.IntegerField(default=0)
+
 
     def clean(self):
         league_value = getattr(self.athlete.league, "league", None)

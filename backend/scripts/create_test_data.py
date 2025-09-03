@@ -4,7 +4,7 @@ import datetime
 def run():
     # Clear table and recreate test table, do this to prevent duplicates in test table after re-running script
     # NOTE: BE CAREFUL ABOUT RUNNING THIS SCRIPT AFTER NON-TESTING DATA IS ADDED
-    Athlete.objects.all().delete() # VERY DANGEROUS LINE
+    # Athlete.objects.all().delete() # VERY DANGEROUS LINE
 
     # Create NFL Athletes and stats
     
