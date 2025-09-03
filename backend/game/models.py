@@ -77,7 +77,7 @@ class nflStats(models.Model):
     rec_yds = models.IntegerField(default=0)
     rec_tds = models.IntegerField(default=0)
     recs = models.IntegerField(default=0)
-    rec_yds_per_att = models.FloatField
+    rec_yds_per_att = models.FloatField(default=0)
 
     # Defensive Stats
     # Tackles (NOTE: Tackles did not become a stat until 1994)
@@ -95,7 +95,8 @@ class nflStats(models.Model):
     # TODO: Special Team stats
     
     def clean(self):
-        if self.athlete.league.name != League.Choices.NFL:
+        league_value = getattr(self.athlete.league, "league", None)
+        if league_value!= League.LeagueChoices.NFL:
             raise ValidationError(f"{self.athlete.name} is not in the NFL.")
         
     def save(self, *args, **kwargs):
@@ -110,7 +111,8 @@ class nbaStats(models.Model):
     rebounds_per_game = models.FloatField()
 
     def clean(self):
-        if self.athlete.league.name != League.Choices.NBA:
+        league_value = getattr(self.athlete.league, "league", None)
+        if league_value != League.LeagueChoices.NBA:
             raise ValidationError(f"{self.athlete.name} is not in the NBA.")
 
     def save(self, *args, **kwargs):
@@ -138,7 +140,8 @@ class mlbStats(models.Model):
     ops = models.FloatField(default=0.000)
 
     def clean(self):
-        if self.athlete.league.name != League.Choices.MLB:
+        league_value = getattr(self.athlete.league, "league", None)
+        if league_value != League.LeagueChoices.MLB:
             raise ValidationError(f"{self.athlete.name} is not in the MLB.")
 
     def save(self, *args, **kwargs):
