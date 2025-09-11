@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', include("game.urls")) # TODO: when creating views with the game(s), delete this path
+    path('hello/', include("game.urls")), # TODO: when creating views with the game(s), delete this path
+    path('api/', include('game.urls')),
 ]

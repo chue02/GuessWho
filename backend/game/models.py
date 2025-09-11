@@ -15,7 +15,8 @@ class League(models.Model):
     league = models.CharField(max_length=50, choices=LeagueChoices.choices, unique=True, default=LeagueChoices.noLeague)
 
     def __str__(self):
-        return self.league
+        return self.get_league_display()
+        
 
 def get_default_league():
     league, created = League.objects.get_or_create(
