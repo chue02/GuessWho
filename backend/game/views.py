@@ -23,6 +23,7 @@ class LeagueViewSet(viewsets.ModelViewSet):
 class AthleteViewSet(viewsets.ModelViewSet):
     queryset = Athlete.objects.all()
     serializer_class = AthleteSerializer
+    # Filter athletes by league
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['league'] #TODO: Figure out how to filter by league name rather than enum value
     # e.g. /api/athletes/?league=NFL rather than /api/athletes/?league=2
