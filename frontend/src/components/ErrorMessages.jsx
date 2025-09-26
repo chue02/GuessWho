@@ -1,8 +1,5 @@
-// TODO: Move the random error message logic to a component
-import ErrorMessages from '../components/ErrorMessages'
-
-const NotFound = () => {
-    // List of flavor error messages
+function ErrorMessages(){
+      // List of flavor error messages
     const errors = [
         "Indexing E credited to the developer",
         "Index out of bounds, 10 yard penalty for the developer",
@@ -17,12 +14,7 @@ const NotFound = () => {
     const randomIndex = Math.floor(Math.random() * errors.length);
     const errorMessage = errors[randomIndex];
 
-    return (
-        <div>
-            <h1>404 Error</h1>
-            <h3><ErrorMessages /></h3>
-        </div>
-    );
-};
+    return errorMessage
+}
 
-export default NotFound
+export default ErrorMessages
