@@ -26,7 +26,7 @@ class MLBStatsSerializer(serializers.ModelSerializer):
 
 
 class AthleteSerializer(serializers.ModelSerializer):
-    # By placing stats serializers in the athlete serializer,
+    # By placing stats serializers in AthleteSerializer,
     # whenever you serialize an athlete you'll get their stats
     # nested inside.
     # NOTE: If you want to update an athlete's stats, remove read_only
